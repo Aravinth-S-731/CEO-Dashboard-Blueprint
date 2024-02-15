@@ -18,7 +18,7 @@ body{
     width: 100vw;
     height: 100svh;
     /* background-image: url(/static/images/login_background.jpg); */
-    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.8)),url(/authentication/static/images/login_background.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.5)),url(/authentication/static/images/login_background.jpg);
     /* background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.2)),url(/static/images/login_background.jpg); */
     background-position: center;
     background-size: cover;
@@ -100,10 +100,12 @@ body{
 /* ----- Signup Section ----- */
 .signup-container{
     position: absolute;
-    top: 50%;
+    top: 53%;
     left: 50%;
     transform: translate(-50%,-50%);
     padding: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: rgba(0, 0, 0, 1) 0px 5px 9px, rgba(0, 0, 0, 1) 0px 10px 10px -6px, rgba(0, 0, 0, 1) 0px -6px 0px inset;
 }
 .signup-container form{
     text-align: center;
@@ -112,9 +114,8 @@ body{
     align-items: center;
     gap: 1em;
     padding: 30px 30px;
-    color: var(--background);
-    backdrop-filter: blur(15px);
-    box-shadow: rgba(0, 0, 0, 1) 0px 5px 9px, rgba(0, 0, 0, 1) 0px 10px 10px -6px, rgba(0, 0, 0, 1) 0px -6px 0px inset;
+    color: var(--on-primary);
+    /* box-shadow: rgba(0, 0, 0, 1) 0px 5px 9px, rgba(0, 0, 0, 1) 0px 10px 10px -6px, rgba(0, 0, 0, 1) 0px -6px 0px inset; */
 }
 .signup-container .container{
     display: flex;

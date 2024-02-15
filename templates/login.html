@@ -46,12 +46,15 @@
                     </div>
                 </div>
             </div>
-            <div class="msg">{{ msg }}</div>
+            <div class="invalidMsg">{{ msg }}</div>
             <button  class="login-btn" type="submit" onclick="validateForm()">Login</button>
             <div class="new-user">
                 Don't have an account <span class="bold"><a href="{{url_for('auth.signup')}}">Signup</a></span>
             </div>
         </form>
+        <!-- <div class="image-container">
+            <img src="/authentication/static/images/ceo-car.jpg" alt="">
+        </div> -->
     </section>
 
 

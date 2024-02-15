@@ -43,12 +43,12 @@ def login():
             # return redirect (url_for('landingPage'))
             return "success"
         else:
-            # username/password incorrect
-            msg = 'Incorrect username/password!'
-    return render_template('login.html', msg='')
+            msg = "Invalid Username / Password"
+    return render_template('login.html', msg = msg)
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+    msg = ""
     if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form and 'emailID' in request.form:
         firstname = request.form['firstName']
         if (request.form['lastName']):
@@ -66,6 +66,21 @@ def signup():
             gender = request.form['gender']
         else:
             gender = ""
-
+        # Check if account exists using MySQL
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM `ceo_login_database` WHERE username = %s', (username,))
+        ceo_login_database = cursor.fetchone()
+        # If ceo_login_database exists show error and validation checks
+        if ceo_login_database:
+            msg = 'Account already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', emailID):
+            msg = 'Invalid email address!'
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username must contain only characters and numbers!'
+        elif not username or not password or not emailID:
+            msg = 'Please fill out the form!'
+        else:
+            print("upload process")
+        print(msg)
         print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
     return render_template('signup.html')
