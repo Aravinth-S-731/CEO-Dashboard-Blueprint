@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO - Login</title>
+    <!-- CSS Files -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="/authentication/static/login.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navigation">
+        <h2 class="brand-text">
+            <a href="{{ url_for('authentication_page.login')}}">CEO-Dashboard</a>
+        </h2>
+        <div id="navLinks">
+            <i class="fa fa-times"  onclick="hideMenu()"></i>
+            <ul>
+                <a href="{{ url_for('authentication_page.register')}}">
+                    <li><i class="fa-solid fa-user-plus"></i>Register</li>
+                </a>
+                <a href="{{ url_for('authentication_page.login')}}">
+                    <li><i class="fa-solid fa-right-to-bracket"></i>Login</li>
+                </a>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+
+    <!-- Pop Up for Login Details -->
+    <div class="popup">
+        <h3>Important Notice</h3>
+        <p>To login, please use the below provided credentials or create a <a href="{{ url_for('authentication_page.register')}}">New Account</a>.</p>
+        <div class="popup-detail">
+            <p class="popup-head">Username: <span class="popup-ans">Admin</span></p>
+            <p class="popup-head">Password: <span class="popup-ans">@Aravinth</span></p>
+        </div>
+        <button id="closePopup">I Understand</button>
+    </div>
+
+    <!-- Login Page -->
+    <section class="login-section" id="login-section">
+
+        <div class="login-container">
+            <h1>Login</h1>
+            <form action="{{ url_for('authentication_page.login')}}" method="post">
+                <div class="group">
+                    <label for="username">
+                        <i class="fa-solid fa-user"></i>
+                        Username
+                    </label>
+                    <input type="text" id="username" name="username" placeholder="Please Enter Username" required>
+                </div>
+                <div class="group">
+                    <label for="password">
+                        <i class="fa-solid fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="Please Enter Password" required>
+                </div>
+                <div class="msg">{{ msg }}</div>
+                <div class="group-button">
+                    <input type="submit" value="Login" class="submit">
+                </div>
+            </form>
+            <p>Don't have an account? <a href="{{ url_for('authentication_page.register')}}">Register</a></p>
+        </div>
+
+    </section>
+
+    <script src="/authentication/static/javascript/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <!-- CSS File -->
+    <link rel="stylesheet" href="/authentication/static/css/signup.css"> 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navigation">
+        <h2 class="brand-text">
+            <a href="{{ url_for('auth.login')}}">CEO-Dashboard</a>
+        </h2>
+        <div id="navLinks">
+            <i class="fa fa-times"  onclick="hideMenu()"></i>
+            <ul>
+                <a href="{{ url_for('auth.signup')}}">
+                    <li><i class="fa-solid fa-user-plus"></i>Register</li>
+                </a>
+                <a href="{{ url_for('auth.login')}}">
+                    <li><i class="fa-solid fa-right-to-bracket"></i>Login</li>
+                </a>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+
+    <!-- Signup Section -->
+    <section class="signup-container">
+        <form action="{{ url_for('auth.signup') }}" method="post">
+            <h1>SIGN UP</h1>
+            <div class="container">
+                <h3>Personal Information</h3>
+                <div class="colum col-1">
+                    <!-- First and Last Name -->
+                    <div>
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input onkeydown="return /[a-z]/i.test(event.key)" id="firstName" name="firstName" type="text" required>
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name</label>
+                        <input onkeydown="return /[a-z]/i.test(event.key)" id="LastName" name="lastName" type="text">
+                    </div>
+                    <!-- User Name -->
+                    <div>
+                        <label for="userName">User Name <span class="required">*</span></label>
+                        <input onkeydown="return /[A-Za-z0-9_]/i.test(event.key)" id="userName" name="userName" required>
+                    </div>
+                </div>
+
+                <h3>Set You Password</h3>
+                <div class="colum col-2">
+                    <!-- Password -->
+                    <div>
+                        <label for="password">Password <span class="required">*</span></label>
+                        <input oninput="checkPassword()" id="password" name="password" type="password" required>
+                        <div class="viewPasswordContainer">
+                            <input type="checkbox" onclick="hidePassword(this)" class="viewPassword" id="password" name="viewPassword">show Password <!-- view Password-->
+                        </div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                        <input id="confirmPassword" oninput="matchPasswords()" name="confirmPassword" type="password" required>
+                        <div class="viewPasswordContainer">
+                            <input type="checkbox" onclick="hidePassword(this)" class="viewPassword" id="confirmPassword">show Password  <!-- view Password-->
+                        </div>
+                    </div>
+                    <!-- Password requirements -->
+                    <div id="passwordCriteria">
+                        The password must contain
+                        <p id="length">Minimum 8 of characters</p>
+                        <p id="capital">At least one upper case letter</p>
+                        <p id="symbol">At least one symbol</p>
+                        <p id="number">At least one number</p>
+                    </div>
+                </div>
+
+                <h3>Other Credentials</h3>
+                <div class="colum col-3">
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phoneNumber">Phone Number <span class="required">*</span></label>
+                        <div class="phoneNumber">
+                            <select id="countryCode" name="countryCode">
+                                <!-- Add options for country codes -->
+                                <option value="+91">+91</option>
+                                <option value="+1">+1</option>
+                                <option value="+98">+98</option>
+                                <option value="+30">+30</option>
+                                <option value="+41">+41</option>
+                                <option value="+61">+61</option>
+                            </select>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                        </div>
+                    </div>
+                    <!-- Mail Id and Confirmation -->
+                    <div>
+                        <label for="mailID">E-Mail ID <span class="required">*</span></label>
+                        <input type="email" name="emailID" id="emailID" required>
+                    </div>
+                    <!-- Gender -->
+                    <div class="gender">
+                        <label for="Gender">Gender</label>
+                        <select name="gender" id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="VerifyMail-btn">Verify Mail</button>
+        </form>
+    </section>
+
+
+    <script>
+        // Navigation Toggle
+        let navLinks = document.getElementById("navLinks");
+        let login_section = document.getElementById("login-section");
+        function showMenu(){
+            navLinks.style.top = "0";
+        }
+        function hideMenu(){
+            navLinks.style.top = "-250px";
+        }
+        // Password checker
+        function checkPassword() {
+            let password = document.getElementById("password").value;
+            let lengthElem = document.getElementById("length");
+            let capitalElem = document.getElementById("capital");
+            let symbolElem = document.getElementById("symbol");
+            let numberElem = document.getElementById("number");
+
+            let lengthPattern = /.{8,}/;
+            let capitalPattern = /[A-Z]/;
+            let symbolPattern = /[!@#$%^&*]/;
+            let numberPattern = /\d/;
+
+            lengthElem.style.color = lengthPattern.test(password) ? "green" : "red";
+            capitalElem.style.color = capitalPattern.test(password) ? "green" : "red";
+            symbolElem.style.color = symbolPattern.test(password) ? "green" : "red";
+            numberElem.style.color = numberPattern.test(password) ? "green" : "red";
+        }
+        // Match Password and Confirm Password
+        function matchPasswords() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword");
+            if (password === confirmPassword.value) {
+                confirmPassword.style.color = "green";
+            }
+            else {
+                confirmPassword.style.color = "red";
+            }
+        }
+        // Show / Hide Password
+        function hidePassword(currentID) {
+            let password = document.getElementById(currentID.id);
+            if (password.type === "password") {
+                password.type = "text";
+            } else {
+                password.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

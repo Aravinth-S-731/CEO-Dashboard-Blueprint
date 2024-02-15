@@ -1,0 +1,13 @@
+registration requirements
+
+- First Name
+- Last Name
+- User Name
+
+- Password (minimum 8 characters)
+- Confirm Password
+- Email Address -- Verify account
+
+- Phone Number
+- Date of Birth
+- Gender: Male/Female/Prefer not to say

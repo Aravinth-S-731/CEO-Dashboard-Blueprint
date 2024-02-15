@@ -1,0 +1,286 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+:root{
+    --primary:           #45ADFF;
+    --secondary:         #00cccc;
+    --on-primary:        #ffffff;
+    --on-secondary:      #151515;
+    --background:        #ffffff;
+    --background-variant:#151515;
+    --surface:           #dddddd;
+    --text-color:        #000000;
+}
+body{
+    width: 100vw;
+    height: 100svh;
+    /* background-image: url(/static/images/login_background.jpg); */
+    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.8)),url(/authentication/static/images/login_background.jpg);
+    /* background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.2)),url(/static/images/login_background.jpg); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ----- Navigation Bar ----- */
+.navigation{
+    display: flex;
+    float: left;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 5em;
+    /* background-color: var(--background-variant); */
+    /* background: linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.1)); */
+    color: var(--on-primary);
+}
+.navigation h2{
+    padding: 10px;
+    margin: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.navigation h2 a{
+    text-decoration: none;
+    color: var(--on-primary);
+    transition: 0.5s;
+}
+.navigation h2 a::after{
+    content: '';
+    display: block;
+    margin: 3px auto;
+    width: 0%;
+    height: 1px;
+    background: var(--primary);
+    transition: 0.5s;
+}
+.navigation h2 a:hover::after{
+    width: 100%;
+}
+.navigation ul{
+    display: flex;
+    flex-direction: row;
+    gap: 5em;
+    padding: 20px;
+}
+.navigation ul a{
+    display: inline-block;
+    position: relative;
+    color: var(--on-primary);
+    text-decoration: none;
+    list-style: none;
+    letter-spacing: 1px;
+}
+.navigation ul a:hover{
+    transform: scale(120%);
+}
+.navigation ul a::after{
+    content: '';
+    display: block;
+    margin: 3px auto;
+    width: 0%;
+    height: 1px;
+    background: var(--primary);
+    transition: 1s;
+}
+.navigation a:hover::after{
+    width: 100%;
+}
+.navigation i{
+    padding: 0 3px;
+}
+.navigation .fa{
+    display: none;
+}
+
+/* ----- Signup Section ----- */
+.signup-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+}
+.signup-container form{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    padding: 30px 30px;
+    color: var(--background);
+    backdrop-filter: blur(15px);
+    box-shadow: rgba(0, 0, 0, 1) 0px 5px 9px, rgba(0, 0, 0, 1) 0px 10px 10px -6px, rgba(0, 0, 0, 1) 0px -6px 0px inset;
+}
+.signup-container .container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+}
+.container .colum{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 3em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #fff;
+}
+.container .colum div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.required{
+    color: red;
+}
+.container input{
+    padding: 2px 10px;
+}
+
+#passwordCriteria{
+    font-size: 12px;
+    opacity: 0.8;
+    color: var(--background);
+    font-style: italic;
+}
+#passwordCriteria p{
+    opacity: 0.6;
+    color: orange;
+}
+.colum div .viewPasswordContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    font-size: 12px;
+}
+.viewPassword{
+    width: 10px;
+    margin: 5px 0;
+}
+.colum div .phoneNumber{
+    display: flex;
+    flex-direction: row;
+}
+.colum div .phoneNumber select{
+    width: 50px;
+    height: 24px;
+}
+.colum div .phoneNumber input{
+    width: 125px;
+}
+.colum div .dateOfBirth{
+    width: 175px;
+}
+.col-3 .gender select{
+    width: 175px;
+    height: 25px;
+}
+.VerifyMail-btn {
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--background-variant);
+    background-color: var(--background);
+    border: none;
+    border-radius: 5px;
+}
+
+
+/* ----- Responsive Design ----- */
+@media (min-width: 436px) and (max-width: 770px) {
+    .navigation h2{
+        font-size: 22px;
+    }
+    .navigation ul a{
+        display: block;
+        font-size: 12px;
+    }
+    .navigation div{
+        position: fixed;
+        background-color: var(--background-variant);
+        width: 100vw;
+        height: 80px;
+        top: -250px;
+        right: 0px;
+        text-align: right;
+        z-index: 2;
+        transition: 1s;
+    }
+    .navigation .fa{
+        display: block;
+        color: var(--on-primary);
+        margin: 10px 30px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+    .navigation .fa-times{
+        position: absolute;
+        margin: 10px 10px;
+        font-size: 18px;
+        right: 0;
+    }
+    .navigation ul{
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 10px 20px;
+    }
+
+}
+
+@media (max-width: 435px) {
+    body{
+        height: 170svh;
+    }
+    .navigation h2{
+        font-size: 22px;
+    }
+    .navigation ul a{
+        display: block;
+        font-size: 12px;
+    }
+    .navigation div{
+        position: fixed;
+        background-color: var(--background-variant);
+        width: 100vw;
+        height: 80px;
+        top: -200px;
+        right: 0px;
+        text-align: right;
+        z-index: 2;
+        transition: 1s;
+    }
+    .navigation .fa{
+        display: block;
+        color: var(--on-primary);
+        margin: 10px 30px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+    .navigation .fa-times{
+        position: absolute;
+        margin: 10px 10px;
+        font-size: 18px;
+        right: 0;
+    }
+    .navigation ul{
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 10px 20px;
+    }
+
+    .signup-container{
+        top: 90%;
+        width: 300px;
+    }
+    .container .colum{
+        grid-template-columns: auto;
+        gap: 1em;
+    }
+}
