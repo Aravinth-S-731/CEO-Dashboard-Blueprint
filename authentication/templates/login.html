@@ -19,7 +19,7 @@
         <div id="navLinks">
             <i class="fa fa-times"  onclick="hideMenu()"></i>
             <ul>
-                <a href="{{ url_for('auth.signup')}}">
+                <a href="{{ url_for('auth.sendMail')}}">
                     <li><i class="fa-solid fa-user-plus"></i>Register</li>
                 </a>
                 <a href="{{ url_for('auth.login')}}">
@@ -49,7 +49,7 @@
             <div class="invalidMsg">{{ msg }}</div>
             <button  class="login-btn" type="submit" onclick="validateForm()">Login</button>
             <div class="new-user">
-                Don't have an account <span class="bold"><a href="{{url_for('auth.signup')}}">Signup</a></span>
+                Don't have an account <span class="bold"><a href="{{url_for('auth.sendMail')}}">Signup</a></span>
             </div>
         </form>
     </section>

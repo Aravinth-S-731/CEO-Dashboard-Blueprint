@@ -31,7 +31,7 @@ def init_mysql_auth(app):
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    msg = ''
+    msg = request.args.get('msg','')
     if request.method == 'POST' and 'userName' in request.form and 'password' in request.form:
         username = request.form['userName']
         password = request.form['password']
@@ -58,8 +58,17 @@ def login():
 
 @auth.route('/verify-mail', methods = ["GET", "POST"])
 def sendMail():
+    session.pop('email', None)
+    session.pop('otp', None)
     if  request.method == 'POST':
         mailID = request.form['mailID']
+        # Check if account exists using MySQL
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM `ceo_login_database` WHERE email = %s', (mailID,))
+        ceo_login_database = cursor.fetchone()
+        if ceo_login_database:
+            msg = 'Account already exists!'
+            return redirect(url_for('auth.login', msg = msg))
         otp = random.randint(1000,9999)
         session['email'] = mailID
         session['otp'] = otp
@@ -90,7 +99,10 @@ def signup():
     msg = ""
     emailID = session.get('email')
     print(emailID)
-    if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form and 'emailID' in request.form:
+    if emailID == None:
+        msg = 'Verify your mail first'
+        return redirect(url_for('auth.sendMail', msg = msg))
+    if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form:
         firstname = request.form['firstName']
         if (request.form['lastName']):
             lastname = request.form['lastName']
@@ -107,21 +119,12 @@ def signup():
             gender = request.form['gender']
         else:
             gender = ""
-        # Check if account exists using MySQL
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM `ceo_login_database` WHERE username = %s', (username,))
-        ceo_login_database = cursor.fetchone()
-        # If ceo_login_database exists show error and validation checks
-        if ceo_login_database:
-            msg = 'Account already exists!'
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', emailID):
-            msg = 'Invalid email address!'
-        elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'Username must contain only characters and numbers!'
-        elif not username or not password or not emailID:
-            msg = 'Please fill out the form!'
-        else:
-            return "Uploading Details"
-            # return redirect(url_for('auth.otpValidation'),otp)
         print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
+        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        # cursor.execute('INSERT INTO `ceo_login_database` (firstname, lastname, username, password, phonenumber, email, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)', (firstname, lastname, username, password, phonenumber, emailID, gender))
+        # mysql.connection.commit()
+        # cursor.close()
+        print("User details inserted into the database")
+        return "Uploading Details"
+        # return redirect(url_for('auth.otpValidation'),otp)
     return render_template('signup.html', msg = msg, mailID = emailID)

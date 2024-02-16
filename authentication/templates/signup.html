@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
     <!-- CSS File -->
-    <link rel="stylesheet" href="/authentication/static/css/signup.css"> 
+    <link rel="stylesheet" href="/authentication/static/css/signup.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -19,7 +19,7 @@
         <div id="navLinks">
             <i class="fa fa-times"  onclick="hideMenu()"></i>
             <ul>
-                <a href="{{ url_for('auth.signup')}}">
+                <a href="{{ url_for('auth.sendMail')}}">
                     <li><i class="fa-solid fa-user-plus"></i>Register</li>
                 </a>
                 <a href="{{ url_for('auth.login')}}">
@@ -116,9 +116,7 @@
                 </div>
             </div>
             <div class="msg">{{ msg }}</div>
-            <a href="{{ url_for('auth.otpValidation')}}">
-                <button type="submit" id="VerifyMail-btn" class="VerifyMail-btn deactive" disabled="true" onclick="openOTPverification()">Verify Mail</button>
-            </a>
+            <button type="submit" id="VerifyMail-btn" class="VerifyMail-btn deactive" disabled="true">Create Account</button>
         </form>
     </section>
 
