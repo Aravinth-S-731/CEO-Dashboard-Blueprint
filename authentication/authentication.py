@@ -13,7 +13,7 @@ auth.secret_key = 'r$W9#kLp2&QnX@5*8yZ$'
 
 mail = Mail()
 mysql = MySQL()
-# Initialize MySQL
+
 def init_mysql_auth(app):
     mysql.init_app(app)
     app.config['MYSQL_HOST'] = 'localhost'
@@ -41,12 +41,9 @@ def login():
         print(password)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM `ceo_login_database` WHERE username = %s AND password = %s', (username, password,))
-        # Fetch one record and return the revenue_result
         ceo_login_database = cursor.fetchone()
-        print(ceo_login_database)
-        # If account exists in accounts table in out database
         if ceo_login_database:
-            # Create session data,to access this data in other routes
+            # session
             session['loggedin'] = True
             session['id'] = ceo_login_database['id']
             session['username'] = ceo_login_database['username']
@@ -130,5 +127,4 @@ def signup():
         print("User details inserted into the database")
         msg = 'Account Created Successfully. Please Login to Continue.'
         return redirect(url_for('auth.login', msg = msg))
-        # return redirect(url_for('auth.otpValidation'),otp)
     return render_template('signup.html', msg = msg, mailID = emailID)
