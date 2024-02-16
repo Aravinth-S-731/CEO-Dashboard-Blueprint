@@ -38,6 +38,7 @@ def login():
         hash = password + auth.secret_key
         hash = hashlib.sha1(hash.encode())
         password = hash.hexdigest()
+        print(password)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM `ceo_login_database` WHERE username = %s AND password = %s', (username, password,))
         # Fetch one record and return the revenue_result
@@ -114,17 +115,20 @@ def signup():
         countrycode = request.form['countryCode']
         phonenumber = request.form['phoneNumber']
         phonenumber = countrycode + phonenumber
-        print(emailID)
         if (request.form['gender']):
             gender = request.form['gender']
         else:
             gender = ""
+        hash = password + auth.secret_key
+        hash = hashlib.sha1(hash.encode())
+        password = hash.hexdigest()
         print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
-        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        # cursor.execute('INSERT INTO `ceo_login_database` (firstname, lastname, username, password, phonenumber, email, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)', (firstname, lastname, username, password, phonenumber, emailID, gender))
-        # mysql.connection.commit()
-        # cursor.close()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO `ceo_login_database` (firstname, lastname, username, password, phonenumber, email, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)', (firstname, lastname, username, password, phonenumber, emailID, gender))
+        mysql.connection.commit()
+        cursor.close()
         print("User details inserted into the database")
-        return "Uploading Details"
+        msg = 'Account Created Successfully. Please Login to Continue.'
+        return redirect(url_for('auth.login', msg = msg))
         # return redirect(url_for('auth.otpValidation'),otp)
     return render_template('signup.html', msg = msg, mailID = emailID)
