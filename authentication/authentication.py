@@ -20,7 +20,7 @@ def init_mysql_auth(app):
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = '@Arvi7777'
     app.config['MYSQL_DB'] = 'ceo-application'
-    
+
     app.config['MAIL_SERVER'] = "smtp.googlemail.com"
     app.config['MAIL_PORT'] = 465
     app.config['MAIL_USERNAME'] = "aravinth7871867225@gmail.com"
@@ -56,9 +56,40 @@ def login():
             msg = "Invalid Username / Password"
     return render_template('login.html', msg = msg)
 
+@auth.route('/verify-mail', methods = ["GET", "POST"])
+def sendMail():
+    if  request.method == 'POST':
+        mailID = request.form['mailID']
+        otp = random.randint(1000,9999)
+        session['email'] = mailID
+        session['otp'] = otp
+        return redirect(url_for('auth.otpValidation'))
+    return render_template('verifyEmail.html')
+
+@auth.route('/otpValidation', methods=['POST', 'GET'])
+def otpValidation():
+    emailID = session.get('email')
+    otp = session.get('otp')
+    print('Generated OTP: ', otp)
+    mail_message = Message('Verify your mail-ID', sender = 'aravinth7871867225@gmail.com', recipients = [emailID])
+    mail_message.body = f"Dear user,\n\nYour OTP for creating an account for CEO Dashboard is: {otp}\n\nPlease use this OTP to complete your account registration.\n\nThank you."
+    mail.send(mail_message)
+    msg = ''
+    if request.method == 'POST':
+        user_entered_otp = request.form['otp']
+        print("User OTP:", user_entered_otp)
+        if int(user_entered_otp) == otp:
+            return redirect(url_for('auth.signup'))
+        else:
+            msg = 'Invalid OTP! Please register again.'
+            return render_template('verifyEmail.html', msg=msg)
+    return render_template('otpValidation.html')
+
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     msg = ""
+    emailID = session.get('email')
+    print(emailID)
     if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form and 'emailID' in request.form:
         firstname = request.form['firstName']
         if (request.form['lastName']):
@@ -71,7 +102,7 @@ def signup():
         countrycode = request.form['countryCode']
         phonenumber = request.form['phoneNumber']
         phonenumber = countrycode + phonenumber
-        emailID = request.form['emailID']
+        print(emailID)
         if (request.form['gender']):
             gender = request.form['gender']
         else:
@@ -90,33 +121,7 @@ def signup():
         elif not username or not password or not emailID:
             msg = 'Please fill out the form!'
         else:
-            print("Confirming OTP")
-            generateOTP(firstname, emailID)
-            return redirect(url_for('auth.otpValidation'))
+            return "Uploading Details"
+            # return redirect(url_for('auth.otpValidation'),otp)
         print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
-    return render_template('signup.html')
-
-@auth.route('/otpValidation', methods=['POST', 'GET'])
-def otpValidation():
-    if request.method == 'POST':
-        user_entered_otp = request.form['otp']
-        print("User OTP:", user_entered_otp)
-        if int(user_entered_otp) == otp:
-            return "OTP is valid. Proceed with account creation."
-        else:
-            return redirect(url_for('auth.signup'))
-    return render_template('otpValidation.html')
-
-otp = 0
-def generateOTP(firstName, mailID):
-    global otp
-    otp = random.randint(1000,9999)
-    print(otp)
-    result = sendMail(otp, firstName, mailID)
-    return print(result + "  : otp generation")
-
-def sendMail(otp, firstName, mailID):
-    mail_message = Message('Verify your mail-ID', sender = 'aravinth7871867225@gmail.com', recipients = [mailID])
-    mail_message.body = f"Dear {firstName},\n\nYour OTP for creating an account is: {otp}\n\nPlease use this OTP to complete your account registration.\n\nThank you."
-    mail.send(mail_message)
-    return "Mail Sent Successfully"
+    return render_template('signup.html', msg = msg, mailID = emailID)

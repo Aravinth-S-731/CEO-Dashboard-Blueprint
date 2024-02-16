@@ -102,7 +102,7 @@
                     <!-- Mail Id and Confirmation -->
                     <div>
                         <label for="mailID">E-Mail ID <span class="required">*</span></label>
-                        <input type="email" name="emailID" id="emailID" required>
+                        <input type="email" name="emailID" id="emailID" disabled="true" required>
                     </div>
                     <!-- Gender -->
                     <div class="gender">
@@ -133,6 +133,8 @@
         function hideMenu(){
             navLinks.style.top = "-250px";
         }
+        // Display MailID
+        document.getElementById("emailID").value = "{{ session.get('email') }}";
         // Password checker
         function checkPassword() {
             let password = document.getElementById("password").value;

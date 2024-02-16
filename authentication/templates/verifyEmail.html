@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <!-- CSS File -->
+    <link rel="stylesheet" type="text/css" href="/authentication/static/css/signup.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navigation">
+        <h2 class="brand-text">
+            <a href="{{ url_for('auth.login')}}">CEO-Dashboard</a>
+        </h2>
+        <div id="navLinks">
+            <i class="fa fa-times"  onclick="hideMenu()"></i>
+            <ul>
+                <a href="{{ url_for('auth.signup')}}">
+                    <li><i class="fa-solid fa-user-plus"></i>Register</li>
+                </a>
+                <a href="{{ url_for('auth.login')}}">
+                    <li><i class="fa-solid fa-right-to-bracket"></i>Login</li>
+                </a>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+
+    <section class="verify-otp" id="verify-otp">
+        <form action="{{ url_for('auth.sendMail') }}" method="post">
+            <h2>
+                <i class="fa fa-envelope"></i>
+                Enter your Mail-ID
+            </h2>
+            <p>Please enter your Mail-ID to verify your account</p>
+            <div>
+                <label for="otp">Mail ID<span class="required"> *</span></label>
+                <input id="mailID" name="mailID" class="mailID" type="email" required>
+            </div>
+            <div>{{ msg }}</div>
+            <button type="submit" name="submitMail" id="submitMail">Generate OTP</button>
+        </form>
+    </section>
+
+
+    <script>
+        // Navigation Toggle
+        var navLinks = document.getElementById("navLinks");
+        let login_section = document.getElementById("login-section");
+        function showMenu(){
+            navLinks.style.top = "0";
+        }
+        function hideMenu(){
+            navLinks.style.top = "-250px";
+        }
+    </script>
+</body>
+</html>

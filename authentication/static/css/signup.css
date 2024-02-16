@@ -203,6 +203,14 @@ body{
     cursor: none;
 }
 
+.verify-otp .mailID {
+    width: 100%;
+    padding: 5px;
+    font-size: medium;
+    letter-spacing: normal;
+    color: var(--text-color);
+}
+
 .verify-otp{
     text-align: center;
     color: var(--on-primary);
