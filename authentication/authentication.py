@@ -90,16 +90,30 @@ def signup():
         elif not username or not password or not emailID:
             msg = 'Please fill out the form!'
         else:
-            print("upload process")
+            print("Confirming OTP")
             generateOTP(firstname, emailID)
-        print(msg)
+            return redirect(url_for('auth.otpValidation'))
         print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
     return render_template('signup.html')
 
+@auth.route('/otpValidation', methods=['POST', 'GET'])
+def otpValidation():
+    if request.method == 'POST':
+        user_entered_otp = request.form['otp']
+        print("User OTP:", user_entered_otp)
+        if int(user_entered_otp) == otp:
+            return "OTP is valid. Proceed with account creation."
+        else:
+            return redirect(url_for('auth.signup'))
+    return render_template('otpValidation.html')
+
+otp = 0
 def generateOTP(firstName, mailID):
+    global otp
     otp = random.randint(1000,9999)
+    print(otp)
     result = sendMail(otp, firstName, mailID)
-    return print(result + "otp generation")
+    return print(result + "  : otp generation")
 
 def sendMail(otp, firstName, mailID):
     mail_message = Message('Verify your mail-ID', sender = 'aravinth7871867225@gmail.com', recipients = [mailID])

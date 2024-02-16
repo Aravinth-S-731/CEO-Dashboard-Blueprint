@@ -31,7 +31,7 @@
     </nav>
 
     <!-- Signup Section -->
-    <section class="signup-container">
+    <section class="signup-container" id="signup-container">
         <form action="{{ url_for('auth.signup') }}" method="post">
             <h1>SIGN UP</h1>
             <div class="container">
@@ -96,7 +96,7 @@
                                 <option value="+41">+41</option>
                                 <option value="+61">+61</option>
                             </select>
-                            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                            <input type="text" id="phoneNumber" name="phoneNumber" onkeydown="return checkPhno(event)" required>
                         </div>
                     </div>
                     <!-- Mail Id and Confirmation -->
@@ -116,7 +116,9 @@
                 </div>
             </div>
             <div class="msg">{{ msg }}</div>
-            <button type="submit" class="VerifyMail-btn">Verify Mail</button>
+            <a href="{{ url_for('auth.otpValidation')}}">
+                <button type="submit" id="VerifyMail-btn" class="VerifyMail-btn deactive" disabled="true" onclick="openOTPverification()">Verify Mail</button>
+            </a>
         </form>
     </section>
 
@@ -144,6 +146,10 @@
             let symbolPattern = /[!@#$%^&*]/;
             let numberPattern = /\d/;
 
+            if (lengthPattern.test(password) &&  capitalPattern.test(password) && symbolPattern.test(password) &&  numberPattern.test(password)) {
+
+            }
+
             lengthElem.style.color = lengthPattern.test(password) ? "green" : "red";
             capitalElem.style.color = capitalPattern.test(password) ? "green" : "red";
             symbolElem.style.color = symbolPattern.test(password) ? "green" : "red";
@@ -153,11 +159,17 @@
         function matchPasswords() {
             let password = document.getElementById("password").value;
             let confirmPassword = document.getElementById("confirmPassword");
+            let VerifyMail_btn = document.getElementById("VerifyMail-btn");
             if (password === confirmPassword.value) {
                 confirmPassword.style.color = "green";
+                VerifyMail_btn.disabled=false;
+                VerifyMail_btn.classList.remove('deactive');
+                VerifyMail_btn.classList.add('active');
             }
             else {
                 confirmPassword.style.color = "red";
+                VerifyMail_btn.classList.remove('active');
+                VerifyMail_btn.classList.add('deactive');
             }
         }
         // Show / Hide Password
@@ -169,6 +181,15 @@
                 password.type = "password";
             }
         }
-    </script>
+        // Check Phone Number
+        function checkPhno(event) {
+            if (event.key === "Backspace" || event.key === "Delete" || event.key === "Tab" ||
+            event.key === "Escape" || event.key === "Enter" ||
+            (event.key >= "0" && event.key <= "9")) {
+                return true
+            }
+            return false
+        }
+</script>
 </body>
 </html>
