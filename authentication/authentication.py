@@ -3,12 +3,15 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import MySQLdb.cursors, re, hashlib
 import mysql.connector
+import random
 from datetime import timedelta
 
+from flask_mail import Mail, Message
 auth = Blueprint('auth', __name__, template_folder='templates', static_folder='static', static_url_path='/authentication/static')
 
 auth.secret_key = 'r$W9#kLp2&QnX@5*8yZ$'
 
+mail = Mail()
 mysql = MySQL()
 # Initialize MySQL
 def init_mysql_auth(app):
@@ -17,12 +20,19 @@ def init_mysql_auth(app):
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = '@Arvi7777'
     app.config['MYSQL_DB'] = 'ceo-application'
+    
+    app.config['MAIL_SERVER'] = "smtp.googlemail.com"
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USERNAME'] = "aravinth7871867225@gmail.com"
+    app.config['MAIL_PASSWORD'] = "hoijwhxxspatlmys"
+    app.config['MAIL_USE_TLS'] = False
+    app.config['MAIL_USE_SSL'] = True
+    mail.init_app(app)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
     if request.method == 'POST' and 'userName' in request.form and 'password' in request.form:
-        print("infunction")
         username = request.form['userName']
         password = request.form['password']
         hash = password + auth.secret_key
@@ -81,6 +91,18 @@ def signup():
             msg = 'Please fill out the form!'
         else:
             print("upload process")
+            generateOTP(firstname, emailID)
         print(msg)
         print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
     return render_template('signup.html')
+
+def generateOTP(firstName, mailID):
+    otp = random.randint(1000,9999)
+    result = sendMail(otp, firstName, mailID)
+    return print(result + "otp generation")
+
+def sendMail(otp, firstName, mailID):
+    mail_message = Message('Verify your mail-ID', sender = 'aravinth7871867225@gmail.com', recipients = [mailID])
+    mail_message.body = f"Dear {firstName},\n\nYour OTP for creating an account is: {otp}\n\nPlease use this OTP to complete your account registration.\n\nThank you."
+    mail.send(mail_message)
+    return "Mail Sent Successfully"
