@@ -48,8 +48,8 @@ def login():
             session['id'] = ceo_login_database['id']
             session['username'] = ceo_login_database['username']
             # Redirect to home page
-            # return redirect (url_for('landingPage'))
-            return "success"
+            return redirect (url_for('landingPage.landingPageHome'))
+            # return "success"
         else:
             msg = "Invalid Username / Password"
     return render_template('login.html', msg = msg)
@@ -86,8 +86,10 @@ def otpValidation():
         user_entered_otp = request.form['otp']
         print("User OTP:", user_entered_otp)
         if int(user_entered_otp) == otp:
+            session['otp_status'] = True
             return redirect(url_for('auth.signup'))
         else:
+            session['otp_status'] = False
             msg = 'Invalid OTP! Please register again.'
             return render_template('verifyEmail.html', msg=msg)
     return render_template('otpValidation.html')
@@ -97,7 +99,7 @@ def signup():
     msg = ""
     emailID = session.get('email')
     print(emailID)
-    if emailID == None:
+    if emailID == None or  'otp_status' not in session :
         msg = 'Verify your mail first'
         return redirect(url_for('auth.sendMail', msg = msg))
     if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form:
@@ -125,6 +127,8 @@ def signup():
         mysql.connection.commit()
         cursor.close()
         print("User details inserted into the database")
+        session.pop('email', None)
+        session.pop('otp', None)
         msg = 'Account Created Successfully. Please Login to Continue.'
         return redirect(url_for('auth.login', msg = msg))
     return render_template('signup.html', msg = msg, mailID = emailID)

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO - Dashboard</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/static/navBar.css">
+    <link rel="stylesheet" href="/landingPage/static/landing_page.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/landing_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_bar.css') }}"> -->
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chartist -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navLinks" id="navLinks">
+            <i class="fa-solid fa-times times-icon menu-icon" onclick="closeDashboardNav()"></i>
+            <ul>
+                <h3>Hi, Welcome {{username}}!</h3>
+                <a href="{{url_for('landingPage.landingPageHome')}}">
+                    <li><i class="fa-solid fa-chart-pie" ></i>Home</li>
+                </a>
+                <a href="#">
+                    <li><i class="fa-solid fa-coins" ></i>Finance</li>
+                </a>
+                <a href="#">
+                    <li><i class="fa-solid fa-bullhorn" ></i>Marketing</li>
+                </a>
+                <a href="#">
+                    <li><i class="fa-solid fa-user-tie" ></i>Operational</li>
+                </a>
+                <a href="#">
+                    <li><i class="fa-solid fa-comments" ></i>Chat</li>
+                </a>
+                <a href="{{url_for('logout')}}">
+                    <li><i class="fa-solid fa-right-from-bracket" ></i>Log out</li>
+                </a>
+            </ul>
+        </div>
+        <i class="fa-solid fa-bars menu-icon" onclick="openDashboardNav()"></i>
+    </nav>
+
+
+    <section class="dashboard-home">
+        <section class="dashboard-content">
+            <!-- Live Data Change -->
+            <div class="responsive-data grid">
+                <!-- Revenue -->
+                <div class="revenue-line-chart" id="revenue">
+                    <h3 class="chart-head">Revenue Per Month</h3>
+                    <canvas id="revenue-line-chart"></canvas>
+                </div>
+                <!-- Payment mode / Profit-->
+                <div class="sub-grid">
+                    <div class="payment-pie-chart" id="payment">
+                        <h3 class="chart-head">Payment Mode</h3>
+                        <canvas id="payment-pie-chart"></canvas>
+                    </div>
+                    <div class="profit-bar-chart" id="profit-chart">
+                        <h3 class="chart-head">Profit Earned</h3>
+                        <canvas id="profit-bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BALANCE GRID -->
+            <div class="accounts-data grid">
+                <h3 class="chart-head">Account Balance</h3>
+                <!-- Balance Information -->
+                <div class="balance-info">
+                    <div class="balance-details">
+                        <div class="balance-numbers">
+                            <h4 class="balance-head">Balance</h4>
+                            <h2 class="balance-amount">₹ 36,06,747</h2>
+                        </div>
+                        <div class="bank-logo">
+                            <img src="/landingPage/static/images/bank-logo.png" alt="Bank Logo">
+                        </div>
+                    </div>
+                    <div class="account-info">
+                        <h5 class="balance-head account-info">Account Info</h5>
+                        <h4 class="account-number account-info">1561 00** **** 250</h4>
+                    </div>
+                </div>
+                <!-- Transactions History-->
+                <div class="recent-transaction" id="recent-transaction">
+                    <h4>Recent Transactions</h4>
+                    <div class="transaction-history" id="transaction-history">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+
+    <script>
+        const month = {{month | tojson}}
+        const revenue = {{revenue | tojson}}
+        const profit = {{profit | tojson}}
+        const payment_mode = {{payment_mode | tojson}}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/landingPage/static/javascript/landing_page.js"></script>
+</body>
+</html>

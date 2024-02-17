@@ -1,0 +1,80 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+:root{
+    --primary:           #45ADFF;
+    --secondary:         #00cccc;
+    --secondary-variant: #8289e8;
+    --on-primary:        #ffffff;
+    --on-secondary:      #151515;
+    --background:        #ffffff;
+    --background-variant:#151515;
+    --surface:           #dddddd;
+    --text-color:        #000000;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    /* overflow: hidden; */
+}
+
+/* ----- Navigation Bar ----- */
+nav{
+    position: absolute;
+    z-index: 5;
+}
+.navLinks{
+    position: fixed;
+    background-color: var(--primary);
+    height: 100vh;
+    width: 200px;
+    text-align: left;
+    top: 0;
+    left: -200px;
+    border-radius: 0 25px 25px 0;
+    z-index: 5;
+    transition: 1s;
+}
+.navLinks .times-icon{
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    z-index: 2;
+    color: var(--on-primary);
+}
+.navLinks ul{
+    margin: 60px 40px;
+}
+.navLinks h3{
+    color: var(--on-primary);
+    opacity: 0.8;
+
+}
+.navLinks ul a{
+    text-decoration: none;
+    color: var(--on-primary);
+}
+
+.navLinks ul a li{
+    list-style: none;
+    margin: 20px 0;
+    padding: 10px 8px;
+    border-radius: 5px;
+    transition: 0.4s;
+}
+.navLinks ul a li:hover{
+    background-color: #ffffff;
+    color: var(--primary);
+    transition: 0.4s;
+}
+nav .menu-icon{
+    margin: 20px;
+    cursor: pointer;
+    color: var(--primary);
+}
+nav i{
+    margin: 0 5px 0 0;
+}

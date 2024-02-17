@@ -1,0 +1,181 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+:root{
+    --primary:           #45ADFF;
+    --secondary:         #00cccc;
+    --secondary-variant: #8289e8;
+    --on-primary:        #ffffff;
+    --on-secondary:      #151515;
+    --background:        #ffffff;
+    --background-variant:#151515;
+    --surface:           #dddddd;
+    --text-color:        #000000;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    /* overflow: hidden; */
+}
+
+/* ----- Dashboard HOME ----- */
+.dashboard-home{
+    height: 100%;
+    width: 100%;
+}
+.dashboard-content{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    gap: 1em;
+}
+
+.grid{
+    text-align: center;
+    margin: 40px;
+}
+.responsive-data{
+    margin-right: 0;
+    display: grid;
+    gap: 1em;
+}
+.accounts-data{
+    margin-left: 0;
+}
+
+.responsive-data .sub-grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1em;
+}
+
+.revenue-line-chart{
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.4),
+    0px 2px 8px -3px rgba(0,0,0,0.3),
+    0px -3px 0px 0px rgba(0,0,0,0.2) inset;
+    padding: 10px;
+}
+.payment-pie-chart{
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.4),
+    0px 2px 8px -3px rgba(0,0,0,0.3),
+    0px -3px 0px 0px rgba(0,0,0,0.2) inset;
+    /* max-height: 250px; */
+    /* height: 100%; */
+    padding: 10px 10px 40px 10px;
+}
+.profit-bar-chart{
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.4),
+    0px 2px 8px -3px rgba(0,0,0,0.3),
+    0px -3px 0px 0px rgba(0,0,0,0.2) inset;
+    padding: 10px;
+}
+.accounts-data{
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.4),
+    0px 2px 8px -3px rgba(0,0,0,0.3),
+    0px -3px 0px 0px rgba(0,0,0,0.2) inset;
+    padding: 10px;
+}
+.accounts-data .balance-info{
+    color: var(--on-primary);
+    background-color: var(--primary);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    line-height: 2em;
+    text-transform: uppercase;
+}
+.balance-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.balance-details img{
+    margin-right: 10px;
+    padding: 5px;
+    background-color: var(--background);
+    border-radius: 50px;
+}
+.account-info{
+    margin: 5px 0;
+    opacity: 0.8;
+    line-height: 1em;
+}
+.account-info .account-number{
+    letter-spacing: 0.2em;
+}
+
+.recent-transaction{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin: 20px;
+}
+.recent-transaction h4{
+    color: var(--primary);
+    text-transform: uppercase;
+}
+.recent-transaction .transaction-history{
+    margin: 10px 0;
+}
+.person{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+.person .transaction-info{
+    display: flex;
+    flex-direction: row;
+    gap: 0.6em;
+}
+.transaction-info img{
+    border-radius: 50px;
+}
+.transaction-info .transaction-detail{
+    align-items: center;
+}
+.transaction-detail .person-name{
+    color: var(--text-color);
+}
+.person .debited{
+    color: red;
+}
+.person .credited{
+    color: green;
+}
+
+/* ---------- MEDIA QUERY ---------- */
+@media (max-width :1024px){
+    .dashboard-content{
+        grid-template-columns: 100%;
+        gap: 0;
+    }
+    .responsive-data .sub-grid{
+        grid-template-columns: 100%;
+    }
+    .accounts-data, .responsive-data{
+        margin: 50px 20px;
+    }
+    .accounts-data{
+        margin-top: 0;
+    }
+    .person-name{
+        font-size: 14px;
+    }
+    .debited , .credited{
+        font-size: 14px;
+    }
+}
