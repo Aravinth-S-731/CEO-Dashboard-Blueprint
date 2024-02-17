@@ -8,6 +8,15 @@ function closeDashboardNav(){
     navLinks.style.left = "-200px";
 }
 
+console.log(role)
+if  (role == "client" || role == "Employee" || role == "Manager") {
+    document.getElementById('dashboard-home').style.display = 'none';
+    alert("Apologies " + username + "! As a " + role + ", you are not authorized to access any of the features.")
+    openDashboardNav()
+}
+
+
+
 function createTransactionHistory() {
     const transactions = [
         { name: "Aravinth", type: "Debited", amount: "- ₹ 36,577", imgSrc: "https://i.pravatar.cc/40?img=68" },

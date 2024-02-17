@@ -63,6 +63,8 @@ def landingPageHome():
         cursor.close()
         return render_template('landingPage.html',
                                 username = session['username'],
+                                email = session['email'],
+                                role = session['role'],
                                 month = month,
                                 revenue = revenue,
                                 profit = profit,

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO -Financial Module</title>
+    <!-- CSS FILE -->
+    <link rel="stylesheet" href="/static/navBar.css">
+    <link rel="stylesheet" href="/financialPage/static/financial_module.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/financial_module.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_bar.css') }}"> -->
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chartist -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navLinks" id="navLinks">
+            <i class="fa-solid fa-times times-icon menu-icon" onclick="closeDashboardNav()"></i>
+            <ul>
+                <h3>Hi, Welcome {{username}}!</h3>
+                <a href="{{url_for('landingPage.landingPageHome')}}">
+                    <li><i class="fa-solid fa-chart-pie" ></i>Home</li>
+                </a>
+                <a href="{{url_for('financialPage.financialModule')}}">
+                    <li><i class="fa-solid fa-coins" ></i>Finance</li>
+                </a>
+                <a href="">
+                    <li><i class="fa-solid fa-bullhorn" ></i>Marketing</li>
+                </a>
+                <a href="">
+                    <li><i class="fa-solid fa-user-tie" ></i>Operational</li>
+                </a>
+                <a href="">
+                    <li><i class="fa-solid fa-comments" ></i>Chat</li>
+                </a>
+                <a href="{{url_for('logout')}}">
+                    <li><i class="fa-solid fa-right-from-bracket" ></i>Log out</li>
+                </a>
+            </ul>
+        </div>
+        <i class="fa-solid fa-bars menu-icon" onclick="openDashboardNav()"></i>
+    </nav>
+
+    <section class="hero-section">
+        <section class="financial-module">
+            <!-- Live Financial Data -->
+            <div class="financial-data grid">
+                <div class="gauge-chart-block">
+                    <div class="gross-profit">
+                        <h3 class="chart-head">Gross Profit</h3>
+                        <canvas id="gross-profit-chart"></canvas>
+                    </div>
+                    <div class="opex-profit">
+                        <h3 class="chart-head">OPEX Ratio</h3>
+                        <canvas id="opex-ratio-chart"></canvas>
+                    </div>
+                    <div class="net-profit">
+                        <h3 class="chart-head">NET profit</h3>
+                        <canvas id="net-profit-chart"></canvas>
+                    </div>
+                </div>
+                <div class="opex-chart-section">
+                    <div class="opex-bar-chart">
+                        <h3 class="chart-head">OPEX Ratio</h3>
+                        <canvas id="opex-line-chart"></canvas>
+                    </div>
+                    <div class="budget-forecasting">
+                        <h3 class="chart-head">Forecasting for Next Year</h3>
+                        <canvas id="forecasting-line-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- Income Statement -->
+            <div class="income-statement-section grid">
+                <div class="income-statement-table" id="income-statement-table">
+                    <h3 class="income-statement-head">Income Statement - {{month[10]}}</h3>
+                    <!-- INCOME STATEMENT TABLE -->
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <script>
+        const month = {{month | tojson}}
+        const revenue = {{revenue | tojson}}
+        const expense = {{expense | tojson}}
+        const profit = {{profit | tojson}}
+        const income_data = {{income_data | tojson}}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/financialPage/static/javascript/financial_module.js"></script>
+</body>
+</html>

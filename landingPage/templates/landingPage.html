@@ -20,7 +20,7 @@
 <body>
 
     <!-- Navigation Bar -->
-    <nav>
+    <nav id="navBar">
         <div class="navLinks" id="navLinks">
             <i class="fa-solid fa-times times-icon menu-icon" onclick="closeDashboardNav()"></i>
             <ul>
@@ -28,7 +28,7 @@
                 <a href="{{url_for('landingPage.landingPageHome')}}">
                     <li><i class="fa-solid fa-chart-pie" ></i>Home</li>
                 </a>
-                <a href="#">
+                <a href="{{url_for('financialPage.financialModule')}}">
                     <li><i class="fa-solid fa-coins" ></i>Finance</li>
                 </a>
                 <a href="#">
@@ -49,7 +49,7 @@
     </nav>
 
 
-    <section class="dashboard-home">
+    <section class="dashboard-home" id="dashboard-home">
         <section class="dashboard-content">
             <!-- Live Data Change -->
             <div class="responsive-data grid">
@@ -107,6 +107,8 @@
         const revenue = {{revenue | tojson}}
         const profit = {{profit | tojson}}
         const payment_mode = {{payment_mode | tojson}}
+        const role = {{role | tojson}}
+        const username = {{username | tojson}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/landingPage/static/javascript/landing_page.js"></script>

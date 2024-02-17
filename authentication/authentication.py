@@ -42,11 +42,14 @@ def login():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM `ceo_login_database` WHERE username = %s AND password = %s', (username, password,))
         ceo_login_database = cursor.fetchone()
+        print(ceo_login_database)
         if ceo_login_database:
             # session
             session['loggedin'] = True
             session['id'] = ceo_login_database['id']
             session['username'] = ceo_login_database['username']
+            session['email'] = ceo_login_database['email']
+            session['role'] = ceo_login_database['role']
             # Redirect to home page
             return redirect (url_for('landingPage.landingPageHome'))
             # return "success"
@@ -102,7 +105,7 @@ def signup():
     if emailID == None or  'otp_status' not in session :
         msg = 'Verify your mail first'
         return redirect(url_for('auth.sendMail', msg = msg))
-    if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form:
+    if request.method == 'POST' and 'firstName' in request.form and 'userName' in request.form and ('password' and 'confirmPassword') in request.form and 'phoneNumber' in request.form and 'role' in request.form:
         firstname = request.form['firstName']
         if (request.form['lastName']):
             lastname = request.form['lastName']
@@ -114,16 +117,13 @@ def signup():
         countrycode = request.form['countryCode']
         phonenumber = request.form['phoneNumber']
         phonenumber = countrycode + phonenumber
-        if (request.form['gender']):
-            gender = request.form['gender']
-        else:
-            gender = ""
+        role = request.form['role']
         hash = password + auth.secret_key
         hash = hashlib.sha1(hash.encode())
         password = hash.hexdigest()
-        print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,gender)
+        print(firstname,lastname,username,password,confirmpassword,phonenumber,emailID,role)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO `ceo_login_database` (firstname, lastname, username, password, phonenumber, email, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)', (firstname, lastname, username, password, phonenumber, emailID, gender))
+        cursor.execute('INSERT INTO `ceo_login_database` (firstname, lastname, username, password, phonenumber, email, role) VALUES (%s, %s, %s, %s, %s, %s, %s)', (firstname, lastname, username, password, phonenumber, emailID, role))
         mysql.connection.commit()
         cursor.close()
         print("User details inserted into the database")

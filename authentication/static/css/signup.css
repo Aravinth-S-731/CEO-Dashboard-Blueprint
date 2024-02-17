@@ -179,7 +179,7 @@ body{
 .colum div .dateOfBirth{
     width: 175px;
 }
-.col-3 .gender select{
+.col-3 .role select{
     width: 175px;
     height: 25px;
 }
