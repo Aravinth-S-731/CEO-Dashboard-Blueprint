@@ -5,6 +5,7 @@ from datetime import timedelta
 from authentication.authentication import auth, init_mysql_auth
 from landingPage.landingPage import landingPage
 from financialPage.financialPage import financialPage
+from marketingPage.marketingPage import marketingPage
 
 app = Flask(__name__)
 app.secret_key = 'r$W9#kLp2&QnX@5*8yZ$'
@@ -26,6 +27,7 @@ def logout():
 app.register_blueprint(auth)
 app.register_blueprint(landingPage)
 app.register_blueprint(financialPage)
+app.register_blueprint(marketingPage)
 
 if __name__ == "__main__":
     [app.run(host="0.0.0.0", port=5000, debug=True)]

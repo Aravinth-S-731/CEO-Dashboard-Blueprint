@@ -31,7 +31,7 @@
                 <a href="{{url_for('financialPage.financialModule')}}">
                     <li><i class="fa-solid fa-coins" ></i>Finance</li>
                 </a>
-                <a href="#">
+                <a href="{{url_for('marketingPage.marketingModule')}}">
                     <li><i class="fa-solid fa-bullhorn" ></i>Marketing</li>
                 </a>
                 <a href="#">
@@ -79,7 +79,7 @@
                     <div class="balance-details">
                         <div class="balance-numbers">
                             <h4 class="balance-head">Balance</h4>
-                            <h2 class="balance-amount">₹ 36,06,747</h2>
+                            <h2 id="balance-amount" class="balance-amount"></h2>
                         </div>
                         <div class="bank-logo">
                             <img src="/landingPage/static/images/bank-logo.png" alt="Bank Logo">
@@ -87,7 +87,7 @@
                     </div>
                     <div class="account-info">
                         <h5 class="balance-head account-info">Account Info</h5>
-                        <h4 class="account-number account-info">1561 00** **** 250</h4>
+                        <h4 id="account-number" class="account-number account-info">1561 00** **** 250</h4>
                     </div>
                 </div>
                 <!-- Transactions History-->

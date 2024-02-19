@@ -8,11 +8,35 @@ function closeDashboardNav(){
     navLinks.style.left = "-200px";
 }
 
+const navListLinks = document.querySelectorAll('ul li');
+
 console.log(role)
-if  (role == "client" || role == "Employee" || role == "Manager") {
+if  (role == "Employee" || role == "Manager" || role == "Client") {
     document.getElementById('dashboard-home').style.display = 'none';
     alert("Apologies " + username + "! As a " + role + ", you are not authorized to access any of the features.")
     openDashboardNav()
+    navListLinks.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (text == 'Home' || text == 'Finance') {
+            item.style.opacity = 0.5;
+        }
+    });
+}
+if (role == "Employee") {
+    navListLinks.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (text == 'Home' || text == 'Finance' || text == 'Marketing') {
+            item.style.opacity = 0.5;
+        }
+    });
+}
+if (role == "Client") {
+    navListLinks.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (text == 'Home' || text == 'Finance' || text == 'Operational' || text == 'Chat' ) {
+            item.style.opacity = 0.5;
+        }
+    });
 }
 
 
@@ -25,6 +49,8 @@ function createTransactionHistory() {
         { name: "Raghavan", type: "Debited", amount: "- ₹ 32,775", imgSrc: "https://i.pravatar.cc/40?img=65" },
         { name: "Aravind", type: "Credited", amount: "+ ₹ 12,500", imgSrc: "https://i.pravatar.cc/40?img=61" },
     ];
+    document.getElementById('balance-amount').innerText = '₹ 36,06,747';
+    document.getElementById('account-number').innerText = '1561 00** **** 250';
     function createTransactionHTML(transaction, index) {
         return `
             <div class="person-${index + 1} person">

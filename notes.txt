@@ -1,3 +1,11 @@
+Set Role for Financial Page ***
+
+Admin - All
+Manager - Marketing; Operational; Chat
+Employee - Operational; Chat
+Client - Marketing
+Guest - None
+
 registration requirements
 
 - First Name

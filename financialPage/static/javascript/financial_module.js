@@ -8,6 +8,36 @@ function closeDashboardNav(){
     navLinks.style.left = "-200px";
 }
 
+const navListLinks = document.querySelectorAll('ul li');
+
+console.log(role)
+if  (role == "client" || role == "Employee" || role == "Manager") {
+    alert("Apologies " + username + "! As a " + role + ", you are not authorized to access any of the features. Please ")
+    openDashboardNav()
+    navListLinks.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (text == 'Home' || text == 'Finance') {
+            item.style.opacity = 0.5;
+        }
+    });
+}
+if (role == "Employee") {
+    navListLinks.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (text == 'Home' || text == 'Finance' || text == 'Marketing') {
+            item.style.opacity = 0.5;
+        }
+    });
+}
+if (role == "Client") {
+    navListLinks.forEach(function(item) {
+        const text = item.textContent.trim();
+        if (text == 'Home' || text == 'Finance' || text == 'Chat' || text == 'Operational') {
+            item.style.opacity = 0.5;
+        }
+    });
+}
+
 function createIncomeStatementTable() {
     const table = document.createElement('table');
     const tableData = income_data

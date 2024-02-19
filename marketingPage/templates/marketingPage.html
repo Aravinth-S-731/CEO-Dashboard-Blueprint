@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO -Marketing Module</title>
+    <!-- CSS FILE -->
+    <link rel="stylesheet" href="/static/navBar.css">
+    <link rel="stylesheet" href="/marketingPage/static/marketing_module.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/marketing_module.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_bar.css') }}"> -->
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chartist -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navLinks" id="navLinks">
+            <i class="fa-solid fa-times times-icon menu-icon" onclick="closeDashboardNav()"></i>
+            <ul>
+                <h3>Hi, Welcome {{username}}!</h3>
+                <a href="{{url_for('landingPage.landingPageHome')}}">
+                    <li><i class="fa-solid fa-chart-pie" ></i>Home</li>
+                </a>
+                <a href="{{url_for('financialPage.financialModule')}}">
+                    <li><i class="fa-solid fa-coins" ></i>Finance</li>
+                </a>
+                <a href="{{url_for('marketingPage.marketingModule')}}">
+                    <li><i class="fa-solid fa-bullhorn" ></i>Marketing</li>
+                </a>
+                <a href="#">
+                    <li><i class="fa-solid fa-user-tie" ></i>Operational</li>
+                </a>
+                <a href="#">
+                    <li><i class="fa-solid fa-comments" ></i>Chat</li>
+                </a>
+                <a href="{{url_for('logout')}}">
+                    <li><i class="fa-solid fa-right-from-bracket" ></i>Log out</li>
+                </a>
+            </ul>
+        </div>
+        <i class="fa-solid fa-bars menu-icon" onclick="openDashboardNav()"></i>
+    </nav>
+
+    <section class="hero-section">
+        <section class="marketing-module" id="marketing-module">
+            <!-- ROW 1 -->
+            <div class="sales-performance-row-1 grid">
+                <!-- CURRENT STATUS -->
+                <div class="current-stats sub-grid">
+                    <!-- New Customers -->
+                    <div class="new-users content-grid">
+                        <i class="fa-solid fa-users fa-2xl"></i>
+                        <div class="text-content">
+                            <h3>277</h3>
+                            <p>New Customers | <b>YTD</b></p>
+                        </div>
+                    </div>
+                    <!-- Sales Revenue -->
+                    <div class="sales-reveune content-grid">
+                        <i class="fa-solid fa-chart-line fa-2xl"></i>
+                        <div class="text-content">
+                            <h3>₹ {{revenue[9]}}</h3>
+                            <p>Sales Revenue | <b>YTD</b></p>
+                        </div>
+                    </div>
+                    <!-- Sales Profit -->
+                    <div class="sales-profit content-grid">
+                        <i class="fa-solid fa-coins fa-2xl"></i>
+                        <div class="text-content">
+                            <h3>₹ {{profit[9]}}</h3>
+                            <p>Sales Profit | <b>YTD</b></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- MONTHLY SALES GROWTH-->
+                <div class="monthly-sales-growth sub-grid">
+                    <h3>Monthly Sales Growth</h3>
+                    <div class="percentage">
+                        <h1 id="sales-growth-percentage"></h1>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sales-growth-chart"></canvas>
+                    </div>
+                </div>
+                <!-- SALES TARGET -->
+                <div class="sales-target sub-grid">
+                    <h3>Sales Target</h3>
+                    <div class="percentage">
+                        <h1 id="sales-target-percentage"></h1>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sales-target-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="sales-performance-row-2 grid">
+                <!-- AD SPENT -->
+                <div class="ad-spent sub-grid">
+                    <h3>Ad Spend</h3>
+                    <div class="value-container">
+                        <i class="fa-solid fa-rectangle-ad"></i>
+                        <div>
+                            <span class="rupee-symbol">₹</span>
+                            <span class="value" id="ad-spent-value">77.77</span>
+                        </div>
+                    </div>
+                    <span class="percentage">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <p id="percentage-value">170 %</p>
+                    </span>
+                    <span class="detail">
+                        The amount of money spent on advertisement campaigns per day.
+                    </span>
+                    <span class="info-30-days">vs previous 30 days</span>
+                </div>
+                <!-- COST - PER - THOUSAND -->
+                <div class="cost-per-thousand sub-grid">
+                    <h3>Cost per Thousand</h3>
+                    <div class="value-container">
+                        <i class="fa-solid fa-people-group"></i>
+                        <div>
+                            <span class="rupee-symbol">₹</span>
+                            <span class="value" id="ad-spent-value">7.32</span>
+                        </div>
+                    </div>
+                    <span class="percentage">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        <p id="percentage-value">21 %</p>
+                    </span>
+                    <span class="detail">
+                        The cost the advertiser pays per 1,000 advertisement impressions on web page.
+                    </span>
+                    <span class="info-30-days">vs previous 30 days</span>
+                </div>
+                <!-- COST - PER - CLICK -->
+                <div class="cost-per-click sub-grid">
+                    <h3>Cost per Click</h3>
+                    <div class="value-container">
+                        <i class="fa-solid fa-hand-pointer"></i>
+                        <div>
+                            <span class="rupee-symbol">₹</span>
+                            <span class="value" id="ad-spent-value">1.05</span>
+                        </div>
+                    </div>
+                    <span class="percentage">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <p id="percentage-value">0.07 %</p>
+                    </span>
+                    <span class="detail">
+                        Determines how much advertisers pay for the ads they place on websites / media.
+                    </span>
+                    <span class="info-30-days">vs previous 30 days</span>
+                </div>
+                <!-- CLICK - THROUGH - RATE -->
+                <div class="click-through-rate sub-grid">
+                    <h3>Click Through Rate</h3>
+                    <div class="value-container">
+                        <i class="fa-solid fa-percent"></i>
+                        <div>
+                            <span class="value" id="ad-spent-value">7.53</span>
+                        </div>
+                    </div>
+                    <span class="percentage">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <p id="percentage-value">43%</p>
+                    </span>
+                    <span class="detail">
+                        CTR is the number of clicks that the ad receives divided by the times of ad shown.
+                    </span>
+                    <span class="info-30-days">vs previous 30 days</span>
+                </div>
+
+            </div>
+        </section>
+    </section>
+
+
+    <script>
+        const revenue = {{revenue | tojson}}
+        const expense = {{expense | tojson}}
+        const profit = {{profit | tojson}}
+        const role = {{role | tojson}}
+        const username = {{username | tojson}}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/marketingPage/static/javascript/marketing_module.js"></script>
+</body>
+</html>

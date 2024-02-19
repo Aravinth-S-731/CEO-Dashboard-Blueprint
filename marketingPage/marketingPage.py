@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, session, render_template, redirect, url_for
 import mysql.connector
 
-financialPage = Blueprint('financialPage', __name__, template_folder='templates', static_folder='static', static_url_path='/financialPage/static')
+marketingPage = Blueprint('marketingPage', __name__, template_folder='templates', static_folder='static', static_url_path='/marketingPage/static')
 
 mydb = mysql.connector.connect(
     host="localhost",
@@ -10,13 +10,13 @@ mydb = mysql.connector.connect(
     database="ceo-revenue"
 )
 
-@financialPage.route('/financial-module')
-def financialModule():
+@marketingPage.route('/marketing-module')
+def marketingModule():
     if 'loggedin' in session:
         if session['role'] == "Guest":
             return redirect(url_for('auth.login', msg = f"As a {session['role']}, you do not have access to login."))
-        elif session['role'] != "Admin":
-            return render_template('financialPage.html',
+        elif session['role'] == "Employee":
+            return render_template('marketingPage.html',
                                 username = session['username'],
                                 email = session['email'],
                                 role = session['role'],
@@ -24,7 +24,6 @@ def financialModule():
                                 revenue = [],
                                 profit = [],
                                 expense = [],
-                                income_data = [],
                                 msg=f"You are not authorized to view this page.")
         cursor = mydb.cursor()
         months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
@@ -50,26 +49,12 @@ def financialModule():
             profit.append(f'{total_revenue[2]}')
         # Close the cursor and database connection
         cursor.close()
-        # Income Statement
-        income_data = [
-            ["Revenue", "₹ 40,330"],
-            ["COGS", "₹ 2,017"],
-            ["Gross Profit", "₹ 16,132"],
-            ["OPEX", "₹ 1,613"],
-            ["Sales", "₹ 2,419"],
-            ["Marketing", "₹ 4,033"],
-            ["General & Admin", "₹ 3,226"],
-            ["Other Income", "₹ 1,209"],
-            ["Other Expense", "₹ 4,330"],
-            ["Operating Cost", "₹ 6,049"]
-        ]
-        return render_template('financialPage.html',
-                                username = session['username'],
+        return render_template('marketingPage.html',
+                                username = session["username"],
                                 email = session['email'],
                                 role = session['role'],
                                 month = month,
                                 revenue = revenue,
                                 expense = expense,
-                                profit = profit,
-                                income_data = income_data,)
+                                profit = profit)
     return redirect(url_for('auth.login'))
