@@ -1,0 +1,143 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CEO -Marketing Module</title>
+        <!-- CSS FILE -->
+        <link rel="stylesheet" href="/static/navBar.css">
+        <link rel="stylesheet" href="/communicationPage/static/chat_module.css">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_module.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_bar.css') }}"> -->
+        <!-- ChartJS -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Chartist -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+        <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </head>
+    <body>
+
+        <!-- Navigation Bar -->
+        <nav>
+            <div class="navLinks" id="navLinks">
+                <i class="fa-solid fa-times times-icon menu-icon" onclick="closeDashboardNav()"></i>
+                <ul>
+                    <h3>Hi, Welcome {{username}}!</h3>
+                    <a href="{{url_for('landingPage.landingPageHome')}}">
+                        <li><i class="fa-solid fa-chart-pie" ></i>Home</li>
+                    </a>
+                    <a href="{{url_for('financialPage.financialModule')}}">
+                        <li><i class="fa-solid fa-coins" ></i>Finance</li>
+                    </a>
+                    <a href="{{url_for('marketingPage.marketingModule')}}">
+                        <li><i class="fa-solid fa-bullhorn" ></i>Marketing</li>
+                    </a>
+                    <a href="{{url_for('operationalPage.operationalModule')}}">
+                        <li><i class="fa-solid fa-user-tie" ></i>Operational</li>
+                    </a>
+                    <a href="{{url_for('communicationPage.communicationModule')}}">
+                        <li><i class="fa-solid fa-comments" ></i>Chat</li>
+                    </a>
+                    <a href="{{url_for('logout')}}">
+                        <li><i class="fa-solid fa-right-from-bracket" ></i>Log out</li>
+                    </a>
+                </ul>
+            </div>
+            <i class="fa-solid fa-bars menu-icon" onclick="openDashboardNav()"></i>
+        </nav>
+
+
+        <!-- <div id="testing">Hello</div> -->
+        <section class="chat-section" id="chat-section">
+            <div class="chat-module">
+                <!-- Message Container -->
+                <div class="message-container sub-div">
+                    <!-- Container Head -->
+                    <div class="person-chatting">
+                        <div class="head">
+                            <img id="current_person_DP" src="https://i.pravatar.cc/40?img=5" alt="Avatar">
+                            <h2 id="current_person_name">Person 2</h2>
+                        </div>
+                        <div class="head-options">
+                            <button type="submit">
+                                <a href="mailto:aravinths741@gmail.com">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                            </button>
+                            <button type="submit"><i class="fa-solid fa-camera"></i></button>
+                            <button type="submit"><i class="fa-solid fa-video"></i></button>
+                            <button type="submit"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Chatting Section -->
+                    <div class="chatting-section" id="chatting-section">
+                        <!-- <img src="https://source.unsplash.com/random/"> -->
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-section">
+                        <div class="sub-chat-input" id="sub-chat-input">
+                            <input type="text" placeholder="Type your message....." class="msg-input" id="msg_input">
+                            <button type="submit" class="send-msg-btn" onclick="sendMSG()">
+                                <i class="fa-solid fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="upload-grp-section" id="upload-grp-section">
+                            <button type="submit" class="upload-msg-btn" onclick="openUpload()">
+                                Upload Files
+                                <i class="fa-solid fa-file"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blur DIV -->
+                <div class="blur-div" id="blur-div"></div>
+
+                <!-- Chat room -->
+                <div class="chat-room sub-div" id="chat_room">
+                    <div class="head">
+                        <h1>Chat Room</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- MOBILE RESPONSIVE TOGGLE -->
+            <i class="fa fa-user chat-room-toggle" id="chat-room-toggle" onclick="openChatRoom()"></i>
+            <i class="fa fa-close chat-room-close" id="chat-room-close" onclick="closeChatRoom()"></i>
+
+        </section>
+
+
+        <section class="upload-section" id="upload-section">
+            <button class="close-btn" onclick="closeUpload()"><i class="fa-solid fa-times"></i></button>
+            <div class="upload-preview">
+                <div id="before-upload" class="before-upload">
+                    <i class="fa-regular fa-folder-open"></i>
+                    File Preview
+                </div>
+                <img class="preview-image" id="file-preview" src="">
+            </div>
+            <div class="upload-container">
+                <label for="file-input" class="upload-btn">
+                    <i class="fa-solid fa-file-import"></i>
+                    Choose File
+                </label>
+                <input type="file" id="file-input" onchange="previewFile()"/>
+            </div>
+            <button onclick="uploadFile()" class="send-file-btn">
+                <i class="fa-solid fa-upload"></i>
+                Send File
+            </button>
+        </section>
+
+        <script>
+            const role = {{role | tojson}}
+            const username = {{username | tojson}}
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="/communicationPage/static/javascript/chat_module.js"></script>
+    </body>
+    </html>

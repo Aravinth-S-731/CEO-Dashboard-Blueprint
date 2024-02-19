@@ -1,0 +1,112 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+:root{
+    --primary:           #45ADFF;
+    --secondary:         #00cccc;
+    --secondary-variant: #8289e8;
+    --on-primary:        #ffffff;
+    --on-secondary:      #151515;
+    --background:        #ffffff;
+    --background-variant:#151515;
+    --surface:           #dddddd;
+    --text-color:        #000000;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    /* overflow: hidden; */
+}
+
+/* -----Operational Module ----- */
+.hero-section{
+    width: 100%;
+    height: 100%;
+}
+.operational-module{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
+.operational-module-row-1, .operational-module-row-2{
+    display: grid;
+    gap: 1em;
+    margin: 40px;
+}
+.operational-module-row-1{
+    grid-template-columns: 50% 50%;
+}
+.operational-module-row-2{
+    grid-template-columns: 33% 33% 33%;
+}
+.sub-grid{
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.4),
+    0px 2px 8px -3px rgba(0,0,0,0.3),
+    0px -3px 0px 0px rgba(0,0,0,0.2) inset;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+h3{
+    display: flex;
+}
+
+/* ----- OPERATIONAL MODULE ROW 1 ----- */
+
+.emp-per-dept canvas, .avg-salary-by-dept canvas{
+    min-width: 500px;
+}
+/* .operational-module-row-1 canvas{
+    width: 500px;
+} */
+.contribution-module canvas{
+    max-height: 220px;
+    min-width: 320px;
+}
+.emp-gender canvas{
+    max-height: 220px;
+    min-width: 320px;
+}
+
+/* ----- MEDIA QUERY ----- */
+@media (max-width :1024px){
+    .sub-grid{
+        height: auto;
+    }
+    .operational-module-row-1 h3{
+        margin-bottom: 2em;
+    }
+    .operational-module{
+        grid-template-rows: 100%;
+    }
+    .operational-module-row-1, .operational-module-row-2{
+        grid-template-columns: 90%;
+    }
+    .operational-module-row-1{
+        margin-bottom: 0;
+    }
+    .operational-module-row-2{
+        margin-top: 5em;
+        padding-bottom: 2em;
+    }
+    .emp-per-dept canvas, .avg-salary-by-dept canvas{
+        min-width: 0;
+        max-width: 360px;
+    }
+    /* .operational-module-row-1 canvas{
+        width: auto;
+        height: auto;
+    } */
+    .contribution-module canvas{
+        max-height: 220px;
+        min-width: 280px;
+    }
+}

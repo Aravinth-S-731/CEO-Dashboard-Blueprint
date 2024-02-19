@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEO -Financial Module</title>
+    <title>CEO -Marketing Module</title>
     <!-- CSS FILE -->
     <link rel="stylesheet" href="/static/navBar.css">
-    <link rel="stylesheet" href="/financialPage/static/financial_module.css">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/financial_module.css') }}">
+    <link rel="stylesheet" href="/operationalPage/static/operational_module.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/operational_module.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_bar.css') }}"> -->
     <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -48,56 +48,56 @@
         <i class="fa-solid fa-bars menu-icon" onclick="openDashboardNav()"></i>
     </nav>
 
+
+    <!-- OPERATIONAL MODULE SECTION -->
     <section class="hero-section">
-        <section class="financial-module"  id="financial-module">
-            <!-- Live Financial Data -->
-            <div class="financial-data grid">
-                <div class="gauge-chart-block">
-                    <div class="gross-profit">
-                        <h3 class="chart-head">Gross Profit</h3>
-                        <canvas id="gross-profit-chart"></canvas>
-                    </div>
-                    <div class="opex-profit">
-                        <h3 class="chart-head">OPEX Ratio</h3>
-                        <canvas id="opex-ratio-chart"></canvas>
-                    </div>
-                    <div class="net-profit">
-                        <h3 class="chart-head">NET profit</h3>
-                        <canvas id="net-profit-chart"></canvas>
-                    </div>
+        <section class="operational-module" id="operational-module">
+            <!-- OPERATIONAL MODULE ROW 1 -->
+            <div class="operational-module-row-1">
+                <!-- No Of Employees per Dept -->
+                <div class="emp-per-dept sub-grid">
+                    <h3>Number of Employees per Department</h3>
+                    <canvas id="emp-per-dept"></canvas>
                 </div>
-                <div class="opex-chart-section">
-                    <div class="opex-bar-chart">
-                        <h3 class="chart-head">OPEX Ratio</h3>
-                        <canvas id="opex-line-chart"></canvas>
-                    </div>
-                    <div class="budget-forecasting">
-                        <h3 class="chart-head">Forecasting for Next Year</h3>
-                        <canvas id="forecasting-line-chart"></canvas>
-                    </div>
+                <!-- Avg Salary by Dept -->
+                <div class="avg-salary-by-dept sub-grid">
+                    <h3>Average Salary per Department</h3>
+                    <canvas id="avg-salary-by-dept"></canvas>
                 </div>
             </div>
-            <!-- Income Statement -->
-            <div class="income-statement-section grid">
-                <div class="income-statement-table" id="income-statement-table">
-                    <h3 class="income-statement-head">Income Statement - {{month[10]}}</h3>
-                    <!-- INCOME STATEMENT TABLE -->
+
+            <!-- OPERATIONAL MODULE ROW 2 -->
+            <div class="operational-module-row-2">
+                <!-- Salary Range Breakdown by Amount -->
+                <div class="salary-range-breakdown-amt sub-grid">
+                    <h3>Salary Range Breakdown - Amount</h3>
+                    <canvas id="salary-range-breakdown-amt"></canvas>
+                </div>
+                <!-- Contribution -->
+                <div class="contribution-module sub-grid">
+                    <h3>Contribution - Department</h3>
+                    <canvas id="contribution-chart"></canvas>
+                </div>
+                <!-- Employee Gender Module -->
+                <div class="emp-gender sub-grid">
+                    <h3>Employee Breakdown</h3>
+                    <canvas id="gender-chart"></canvas>
                 </div>
             </div>
         </section>
     </section>
 
 
+
     <script>
-        const month = {{month | tojson}}
-        const revenue = {{revenue | tojson}}
-        const expense = {{expense | tojson}}
-        const profit = {{profit | tojson}}
-        const income_data = {{income_data | tojson}}
+        const employee_count_per_department = {{employee_count_per_department | tojson}}
+        const average_salary_per_department = {{average_salary_per_department | tojson}}
+        const salary_range_of_employee = {{salary_range_of_employee | tojson}}
+        const employees_gender_count = {{employess_gender_count | tojson}}
         const role = {{role | tojson}}
         const username = {{username | tojson}}
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/financialPage/static/javascript/financial_module.js"></script>
+    <script src="/operationalPage/static/javascript/operational_module.js"></script>
 </body>
 </html>
