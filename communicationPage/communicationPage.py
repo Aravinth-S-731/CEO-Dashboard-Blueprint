@@ -26,7 +26,7 @@ def communicationModule():
     if session['role'] == "Guest":
         return redirect(url_for('auth.login', msg = f"As a {session['role']}, you do not have access to login."))
     elif session['role'] == "Client":
-        return render_template('operationalPage.html',
+        return render_template('communicationPage.html',
                             username = session['username'],
                             email = session['email'],
                             role = session['role'],
