@@ -71,6 +71,19 @@ def sendMail():
             msg = 'Account already exists!'
             return redirect(url_for('auth.login', msg = msg))
         otp = random.randint(1000,9999)
+        if 'admin' in mailID.lower():
+            initial_role = 'Admin'
+        elif 'manager' in mailID.lower():
+            initial_role = 'Manager'
+        elif 'employee' in mailID.lower():
+            initial_role = 'Employee'
+        elif 'client' in mailID.lower():
+            initial_role = 'Client'
+        elif 'guest' in mailID.lower():
+            initial_role = 'Guest'
+        else:
+            initial_role = 'Guest'
+        session['initial_role'] = initial_role
         session['email'] = mailID
         session['otp'] = otp
         return redirect(url_for('auth.otpValidation'))
@@ -80,11 +93,12 @@ def sendMail():
 def otpValidation():
     emailID = session.get('email')
     otp = session.get('otp')
+    msg = ''
     print('Generated OTP: ', otp)
     mail_message = Message('Verify your mail-ID', sender = 'aravinth7871867225@gmail.com', recipients = [emailID])
     mail_message.body = f"Dear user,\n\nYour OTP for creating an account for CEO Dashboard is: {otp}\n\nPlease use this OTP to complete your account registration.\n\nThank you."
     mail.send(mail_message)
-    msg = ''
+    msg = f'Mail sent successfully to {emailID}'
     if request.method == 'POST':
         user_entered_otp = request.form['otp']
         print("User OTP:", user_entered_otp)
@@ -95,7 +109,7 @@ def otpValidation():
             session['otp_status'] = False
             msg = 'Invalid OTP! Please register again.'
             return render_template('verifyEmail.html', msg=msg)
-    return render_template('otpValidation.html')
+    return render_template('otpValidation.html', msg = msg)
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -131,4 +145,4 @@ def signup():
         session.pop('otp', None)
         msg = 'Account Created Successfully. Please Login to Continue.'
         return redirect(url_for('auth.login', msg = msg))
-    return render_template('signup.html', msg = msg, mailID = emailID)
+    return render_template('signup.html', msg = msg, mailID = emailID, initial_role = session.get('initial_role'))

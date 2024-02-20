@@ -236,6 +236,10 @@ body{
     letter-spacing: 10px;
     color: var(--primary);
 }
+.invalidMsg{
+    font-size: 14px;
+    color: orange;
+}
 
 /* ----- Responsive Design ----- */
 @media (min-width: 436px) and (max-width: 770px) {

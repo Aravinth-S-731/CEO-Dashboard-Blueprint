@@ -29,7 +29,6 @@
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </nav>
-
     <!-- Signup Section -->
     <section class="signup-container" id="signup-container">
         <form action="{{ url_for('auth.signup') }}" method="post">
@@ -108,16 +107,16 @@
                     <div class="role">
                         <label for="role">Your role <span class="required">*</span></label>
                         <select name="role" id="role">
-                            <option value="Admin">Admin</option>
+                            <!-- <option value="Admin">Admin</option>
                             <option value="Manager">Manager</option>
                             <option value="Employee">Employee</option>
                             <option value="Client">Client</option>
-                            <option value="Guest">Guest</option>
+                            <option value="Guest">Guest</option> -->
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="msg">{{ msg }}</div>
+            <div class="invalidMsg">{{ initial_role }}</div>
             <button type="submit" id="VerifyMail-btn" class="VerifyMail-btn deactive" disabled="true">Create Account</button>
         </form>
     </section>
@@ -191,6 +190,37 @@
                 return true
             }
             return false
+        }
+        // Build Role Selection Dynamically
+        let initialRole = "{{ initial_role }}";
+        let roleSelect = document.getElementById("role");
+        function addOption(value, text) {
+            let option = document.createElement("option");
+            option.value = value;
+            option.text = text;
+            roleSelect.appendChild(option);
+        }
+        roleSelect.innerHTML = "";
+        if (initialRole === "Admin") {
+            addOption("Admin", "Admin");
+            addOption("Manager", "Manager");
+            addOption("Employee", "Employee");
+            addOption("Client", "Client");
+            addOption("Guest", "Guest");
+        } else if (initialRole === "Manager") {
+            addOption("Manager", "Manager");
+            addOption("Employee", "Employee");
+            addOption("Client", "Client");
+            addOption("Guest", "Guest");
+        } else if (initialRole === "Employee") {
+            addOption("Employee", "Employee");
+            addOption("Client", "Client");
+            addOption("Guest", "Guest");
+        } else if (initialRole === "Client") {
+            addOption("Client", "Client");
+            addOption("Guest", "Guest");
+        } else if (initialRole === "Guest") {
+            addOption("Guest", "Guest");
         }
 </script>
 </body>
