@@ -21,3 +21,14 @@ registration requirements
 - Gender: Male/Female/Prefer not to say
 
 ------------------------------------------------
+TO-DO
+1st Review
+[x] - Add detailed sign up form
+[x] - interpret verification
+[x] - OTP validation
+[x] - Mail categorization
+
+recommendations
+[ ] - Avoid hard coded chat section
+[ ] - Alter chat according to user sign up
+[ ] - Maybe add Animations

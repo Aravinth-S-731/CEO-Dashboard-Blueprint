@@ -49,11 +49,11 @@ if (role == "Client") {
 
 // Data for chat groups
 let chatGroups = [
-    { avatar: "https://i.pravatar.cc/40?img=47", name: "Person 1" },
-    { avatar: "https://i.pravatar.cc/40?img=5", name: "Person 2" },
-    { avatar: "https://i.pravatar.cc/40?img=9", name: "Person 3" },
-    { avatar: "https://i.pravatar.cc/40?img=32", name: "Person 4" },
-    { avatar: "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png", name: "Employee Group"}
+    { avatar: "https://i.pravatar.cc/40?img=47", name: "Manager" },
+    { avatar: "https://i.pravatar.cc/40?img=5", name: "Employee" },
+    { avatar: "https://i.pravatar.cc/40?img=9", name: "Client" },
+    { avatar: "https://i.pravatar.cc/40?img=32", name: "Guest" },
+    { avatar: "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png", name: "Group"}
 ];
 
 
